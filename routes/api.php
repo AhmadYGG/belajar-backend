@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\MusicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/characters/{username}', [CharacterController::class, 'getByUsername']);
 });
+
+Route::get('/saved-music', [MusicController::class, 'getAllSavedMusic']);
 
 Route::get('/profile', function (Request $request) {
     return response()->json([
