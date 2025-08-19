@@ -20,6 +20,7 @@ class MusicController extends Controller
      *             @OA\Property(property="status", type="string", example="success"),
      *             @OA\Property(
      *                 property="data",
+     *                 type="array",
      *                 @OA\Items(
      *                     type="object",
      *                     @OA\Property(property="id", type="integer", example=1),
@@ -29,7 +30,9 @@ class MusicController extends Controller
      *             )
      *         )
      *     )
+     * )
      */
+
 
     public function getAllSavedMusic()
     {

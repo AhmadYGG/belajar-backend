@@ -196,6 +196,53 @@
                     }
                 ]
             }
+        },
+        "/api/music": {
+            "get": {
+                "tags": [
+                    "Music"
+                ],
+                "summary": "Get All Public Music",
+                "operationId": "5db0d6a882ec3df6cef901b8b5dc2ebc",
+                "responses": {
+                    "200": {
+                        "description": "List of Saved Music",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Song 1"
+                                                    },
+                                                    "url": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/song1.mp3"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -206,6 +253,10 @@
         {
             "name": "Character",
             "description": "Character"
+        },
+        {
+            "name": "Music",
+            "description": "Music"
         }
     ]
 }
