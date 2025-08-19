@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\CharacterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('products', ProductController::class);
-Route::apiResource('categories', CategoryController::class);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('jwt.auth')->group(function () {
+    Route::get('/characters/{username}', [CharacterController::class, 'getByUsername']);
+});
+
+Route::get('/profile', function (Request $request) {
+    return response()->json([
+        'user' => $request->auth
+    ]);
+})->middleware('jwt');

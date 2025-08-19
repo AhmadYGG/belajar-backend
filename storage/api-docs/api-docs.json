@@ -1,52 +1,43 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "My API",
-        "description": "API Documentation",
+        "title": "SAMP API",
+        "description": "Dokumentasi API untuk Account Panel SAMP",
         "version": "1.0.0"
     },
     "servers": [
         {
-            "url": "http://localhost:8000",
+            "url": "http://127.0.0.1:8000",
             "description": "Local server"
         }
     ],
     "paths": {
-        "/api/categories": {
-            "get": {
-                "tags": [
-                    "Categories"
-                ],
-                "summary": "Ambil semua kategori",
-                "operationId": "3f5817a34833d0a1f4af4548dd3aeaba",
-                "responses": {
-                    "200": {
-                        "description": "Berhasil ambil daftar kategori"
-                    }
-                }
-            },
+        "/": {},
+        "/api/login": {
             "post": {
                 "tags": [
-                    "Categories"
+                    "Auth"
                 ],
-                "summary": "Tambah kategori baru",
-                "operationId": "71fcad552bb0eaba9fb191fd8d8dcab0",
+                "summary": "Login UCP",
+                "description": "Validasi username (UCP) dan password terhadap DB SA-MP (kolom Password_Bcrypt).",
+                "operationId": "222b2625838e3c57e017987f73598fda",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "name"
+                                    "ucp",
+                                    "password"
                                 ],
                                 "properties": {
-                                    "name": {
+                                    "ucp": {
                                         "type": "string",
-                                        "example": "Elektronik"
+                                        "example": "Noverra"
                                     },
-                                    "description": {
+                                    "password": {
                                         "type": "string",
-                                        "example": "Kategori untuk barang elektronik"
+                                        "example": "rahasia123"
                                     }
                                 },
                                 "type": "object"
@@ -55,231 +46,166 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Berhasil menambah kategori"
+                    "200": {
+                        "description": "Login berhasil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Login berhasil"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "Noverra"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Kredensial salah",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "UCP atau password salah"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
                     }
                 }
             }
         },
-        "/api/categories/{id}": {
+        "/api/characters/{username}": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Character"
                 ],
-                "summary": "Ambil detail kategori",
-                "operationId": "c68e76d323c008827a9e47398b1583de",
+                "summary": "Get character by UCP username",
+                "operationId": "675948fbf886ae3d770323530d7a528b",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "username",
                         "in": "path",
+                        "description": "UCP Username",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Berhasil ambil detail kategori"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Categories"
-                ],
-                "summary": "Update kategori",
-                "operationId": "0e686b2748211cc688333ed705dc111f",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "Elektronik"
+                        "description": "Character data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "Username": {
+                                                    "type": "string",
+                                                    "example": "Aziz"
+                                                },
+                                                "CharName": {
+                                                    "type": "string",
+                                                    "example": "Aziz_Martinez"
+                                                },
+                                                "Level": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "Money": {
+                                                    "type": "integer",
+                                                    "example": 2500
+                                                },
+                                                "Job": {
+                                                    "type": "string",
+                                                    "example": "Trucker"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     },
-                                    "description": {
-                                        "type": "string",
-                                        "example": "Kategori untuk barang elektronik"
-                                    }
-                                },
-                                "type": "object"
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Character not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     }
                 },
-                "responses": {
-                    "200": {
-                        "description": "Berhasil update kategori"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Categories"
-                ],
-                "summary": "Hapus kategori",
-                "operationId": "4c12e22a7f8c617bd83bfa1fdc05428d",
-                "parameters": [
+                "security": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
+                        "bearerAuth": []
                     }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "Berhasil hapus kategori"
-                    }
-                }
-            }
-        },
-        "/api/products": {
-            "get": {
-                "tags": [
-                    "Products"
-                ],
-                "summary": "Get list of products",
-                "operationId": "1bfaa78d1c2c3848ab8165c5dadcad3e",
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Products"
-                ],
-                "summary": "Create new product",
-                "operationId": "e8185e307706e2cd84bbcf5171e2f09d",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "price"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "price": {
-                                        "type": "number",
-                                        "format": "float"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    }
-                }
-            }
-        },
-        "/api/products/{id}": {
-            "get": {
-                "tags": [
-                    "Products"
-                ],
-                "summary": "Get product by ID",
-                "operationId": "7ab21ddb713501f3d4c2914892c02a21",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Products"
-                ],
-                "summary": "Update product",
-                "operationId": "6a7e11900844cd85cff66e662b82bd4c",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "price": {
-                                        "type": "number",
-                                        "format": "float"
-                                    },
-                                    "description": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Updated"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Products"
-                ],
-                "summary": "Delete product",
-                "operationId": "e80a6ca46716acee6b47ea1ac91663c0",
-                "responses": {
-                    "204": {
-                        "description": "Deleted"
-                    }
-                }
+                ]
             }
         }
     },
     "tags": [
         {
-            "name": "Categories",
-            "description": "Categories"
+            "name": "Auth",
+            "description": "Auth"
         },
         {
-            "name": "Products",
-            "description": "Products"
+            "name": "Character",
+            "description": "Character"
         }
     ]
 }
