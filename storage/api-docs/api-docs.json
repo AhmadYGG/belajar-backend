@@ -197,6 +197,114 @@
                 ]
             }
         },
+        "/api/factions": {
+            "get": {
+                "tags": [
+                    "Factions"
+                ],
+                "summary": "Get All Factions",
+                "operationId": "badaf54773521c3f139ae53ac0ea6099",
+                "responses": {
+                    "200": {
+                        "description": "List of Factions",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "factionID": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Police Department"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Law enforcement faction"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/factions/{factionID}/items": {
+            "get": {
+                "tags": [
+                    "Factions"
+                ],
+                "summary": "Get Items from a Specific Faction",
+                "operationId": "8b6147c1e0dd4ce0e78560954b5cf8f5",
+                "parameters": [
+                    {
+                        "name": "factionID",
+                        "in": "path",
+                        "description": "Faction ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Faction Items",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "ID": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "itemName": {
+                                                        "type": "string",
+                                                        "example": "M4A1 Rifle"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "integer",
+                                                        "example": 50
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Faction not found"
+                    }
+                }
+            }
+        },
         "/api/music": {
             "get": {
                 "tags": [
@@ -253,6 +361,10 @@
         {
             "name": "Character",
             "description": "Character"
+        },
+        {
+            "name": "Factions",
+            "description": "Factions"
         },
         {
             "name": "Music",

@@ -33,7 +33,6 @@ class MusicController extends Controller
      * )
      */
 
-
     public function getAllSavedMusic()
     {
         $musics = Music::all();

@@ -52,7 +52,7 @@ class CharacterController extends Controller
     {
         $character = Character::where('Username', $username)
         ->with(['bankAccount', 'cars'])
-        ->get(['ID', 'Character', 'Level', 'PlayingHours', 'Exp', 'Money', 'Faction', 'FactionRank']);
+        ->get(['ID', 'Character', 'Skin', 'Level', 'PlayingHours', 'Exp', 'Money', 'Faction', 'FactionRank']);
 
         if (!$character) {
             return response()->json([
@@ -65,6 +65,7 @@ class CharacterController extends Controller
             return [
                 'ID' => $char->ID,
                 'Character' => $char->Character,
+                'Skin' => $char->Skin,
                 'Level' => $char->Level,
                 'PlayingHours' => $char->PlayingHours,
                 'Exp' => $char->Exp,
