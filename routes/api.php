@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\FactionController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('jwt.auth')->group(function () {
+    Route::post('/orders', [OrderController::class, 'store']);      // buat order baru
+    Route::get('/orders/{id}', [OrderController::class, 'show']);   // lihat detail order
+    Route::get('/orders/{id}/receipt', [OrderController::class, 'receipt']); // download struk PDF
     Route::get('/characters/{username}', [CharacterController::class, 'getByUsername']);
 });
 

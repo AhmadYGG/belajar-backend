@@ -21,8 +21,8 @@ class AuthController extends Controller
      *     required=true,
      *     @OA\JsonContent(
      *       required={"ucp","password"},
-     *       @OA\Property(property="ucp", type="string", example="Noverra"),
-     *       @OA\Property(property="password", type="string", example="rahasia123")
+     *       @OA\Property(property="ucp", type="string", example="admin"),
+     *       @OA\Property(property="password", type="string", example="admin123")
      *     )
      *   ),
      *   @OA\Response(
@@ -33,7 +33,7 @@ class AuthController extends Controller
      *       @OA\Property(property="message", type="string", example="Login berhasil"),
      *       @OA\Property(property="data", type="object",
      *         @OA\Property(property="id", type="integer", example=1),
-     *         @OA\Property(property="username", type="string", example="Noverra")
+     *         @OA\Property(property="username", type="string", example="admin")
      *       )
      *     )
      *   ),

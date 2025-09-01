@@ -33,6 +33,7 @@ class MusicController extends Controller
      * )
      */
 
+    // mengambil semua data musik yang sudah ditambahkan
     public function getAllSavedMusic()
     {
         $musics = Music::all();

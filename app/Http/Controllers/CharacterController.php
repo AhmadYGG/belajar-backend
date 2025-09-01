@@ -12,7 +12,7 @@ class CharacterController extends Controller
      *     path="/api/characters/{username}",
      *     summary="Get character by UCP username",
      *     tags={"Character"},
-     *     security={{"bearerAuth": {}}},
+     *     security={{"bearerAuth": {}}}, 
      *     @OA\Parameter(
      *         name="username",
      *         in="path",
@@ -27,13 +27,39 @@ class CharacterController extends Controller
      *             @OA\Property(property="status", type="string", example="success"),
      *             @OA\Property(
      *                 property="data",
-     *                 type="object",
-     *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="Username", type="string", example="Aziz"),
-     *                 @OA\Property(property="CharName", type="string", example="Aziz_Martinez"),
-     *                 @OA\Property(property="Level", type="integer", example=5),
-     *                 @OA\Property(property="Money", type="integer", example=2500),
-     *                 @OA\Property(property="Job", type="string", example="Trucker")
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="ID", type="integer", example=1),
+     *                     @OA\Property(property="Character", type="string", example="Antonio_Rudriger"),
+     *                     @OA\Property(property="Skin", type="integer", example=292),
+     *                     @OA\Property(property="Level", type="integer", example=1),
+     *                     @OA\Property(property="PlayingHours", type="integer", example=112),
+     *                     @OA\Property(property="Exp", type="integer", example=8),
+     *                     @OA\Property(property="Money", type="integer", example=50000),
+     *                     @OA\Property(property="Faction", type="integer", example=32),
+     *                     @OA\Property(property="FactionRank", type="integer", example=5),
+     *                     @OA\Property(
+     *                         property="BankAccount",
+     *                         type="array",
+     *                         @OA\Items(
+     *                             type="object",
+     *                             @OA\Property(property="AccNumber", type="integer", example=1732),
+     *                             @OA\Property(property="AccName", type="string", example="Antonio"),
+     *                             @OA\Property(property="Balance", type="integer", example=30000000)
+     *                         )
+     *                     ),
+     *                     @OA\Property(
+     *                         property="Cars",
+     *                         type="array",
+     *                         @OA\Items(
+     *                             type="object",
+     *                             @OA\Property(property="carModel", type="integer", example=521),
+     *                             @OA\Property(property="carPlate", type="string", example="No Plate"),
+     *                             @OA\Property(property="carPlate_Time1", type="string", example="EXPIRED")
+     *                         )
+     *                     )
+     *                 )
      *             )
      *         )
      *     ),
