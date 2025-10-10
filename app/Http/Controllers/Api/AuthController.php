@@ -2,107 +2,43 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Account;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Services\Auth\AuthService;
 
 class AuthController extends Controller
 {
-    /**
-     * @OA\Post(
-     *   path="/api/login",
-     *   tags={"Auth"},
-     *   summary="Login UCP",
-     *   description="Validasi username (UCP) dan password terhadap DB SA-MP (kolom Password_Bcrypt).",
-     *   @OA\RequestBody(
-     *     required=true,
-     *     @OA\JsonContent(
-     *       required={"ucp","password"},
-     *       @OA\Property(property="ucp", type="string", example="admin"),
-     *       @OA\Property(property="password", type="string", example="admin123")
-     *     )
-     *   ),
-     *   @OA\Response(
-     *     response=200,
-     *     description="Login berhasil",
-     *     @OA\JsonContent(
-     *       @OA\Property(property="status", type="string", example="success"),
-     *       @OA\Property(property="message", type="string", example="Login berhasil"),
-     *       @OA\Property(property="data", type="object",
-     *         @OA\Property(property="id", type="integer", example=1),
-     *         @OA\Property(property="username", type="string", example="admin")
-     *       )
-     *     )
-     *   ),
-     *   @OA\Response(
-     *     response=401,
-     *     description="Kredensial salah",
-     *     @OA\JsonContent(
-     *       @OA\Property(property="status", type="string", example="error"),
-     *       @OA\Property(property="message", type="string", example="UCP atau password salah")
-     *     )
-     *   ),
-     *   @OA\Response(
-     *     response=422,
-     *     description="Validasi gagal"
-     *   )
-     * )
-     */
-    public function login(Request $request)
+    protected $authService;
+
+    public function __construct(AuthService $authService)
     {
-        $request->validate([
-            'ucp'      => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $this->authService = $authService;
+    }
+    public function loginUser(LoginRequest $request)
+    {
+        try {
+            $result = $this->authService->loginUser(
+                $request->input('ucp'),
+                $request->input('password')
+            );
 
-        $username = $request->input('ucp');
-        $password = $request->input('password');
+            if (!$result || !$result['status']) {
+                return response()->json([
+                    'message' => $result['message'] ?? 'Login gagal. Username atau kata sandi tidak sesuai.',
+                ], $result['code'] ?? 401);
+            }
 
-        // Ambil akun dari DB
-        $account = Account::where('Username', $username)->first();
-
-        if (!$account) {
             return response()->json([
-                'status'  => 'error',
-                'message' => 'UCP atau password salah'
-            ], 401);
-        }
-        
-        // Hash password input user dengan salt tetap
-        $salt = "78sdjs86d2h";
-        $hashedInput = strtoupper(hash('sha256', $password . $salt));
+                'message' => $result['message'] ?? 'Login berhasil.',
+                'data' => $result['data'] ?? null,
+                'token' => $result['token'] ?? null,
+            ], $result['code'] ?? 200);
 
-        // Cek dengan yang ada di DB
-        if ($hashedInput !== $account->Password) { // ganti sesuai nama kolom di DB
+        } catch (\Throwable $e) {
             return response()->json([
-                'status'  => 'error',
-                'message' => 'UCP atau password salah'
-            ], 401);
+                'status' => false,
+                'message' => 'Terjadi kesalahan pada server: ' . $e->getMessage(),
+            ], 500);
         }
-        
-        // Buat payload JWT
-        $payload = [
-            'iss' => "samp-ucp",            // Issuer
-            'sub' => $account->ID,          // Subject (user id)
-            'ucp' => $account->Username,    // Bisa tambahin info lain
-            'iat' => time(),                // Issued at
-            'exp' => time() + 60*60         // Expired dalam 1 jam
-        ];
-        
-        $jwt = JWT::encode($payload, env('JWT_SECRET'), 'HS256');
-        
-        // Login berhasil
-        return response()->json([
-            'status'  => 'success',
-            'message' => 'Login berhasil',
-            'data'    => [
-                'id'       => $account->ID ?? null,
-                'username' => $account->Username,
-            ],
-            'token' => $jwt
-        ], 200);
     }
 }

@@ -19,27 +19,16 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [AuthController::class, 'loginUser']);
+Route::get('/music', [MusicController::class, 'listMusic']);
+Route::prefix('factions')->group(function () {
+    Route::get('/', [FactionController::class, 'index']);
+    Route::get('/{factionID}/items', [FactionController::class, 'getItems']);
 });
 
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::middleware('jwt.auth')->group(function () {
-    Route::post('/orders', [OrderController::class, 'store']);      // buat order baru
-    Route::get('/orders/{id}', [OrderController::class, 'show']);   // lihat detail order
-    Route::get('/orders/{id}/receipt', [OrderController::class, 'receipt']); // download struk PDF
+Route::middleware('jwt')->group(function () {
+    Route::post('/orders', [OrderController::class, 'store']);
+    Route::get('/orders/{id}', [OrderController::class, 'show']);
+    Route::get('/orders/{id}/receipt', [OrderController::class, 'receipt']);
     Route::get('/characters/{username}', [CharacterController::class, 'getByUsername']);
 });
-
-Route::get('/saved-music', [MusicController::class, 'getAllSavedMusic']);
-Route::prefix('factions')->group(function () {
-    Route::get('/', [FactionController::class, 'index']); // Get all factions
-    Route::get('/{factionID}/items', [FactionController::class, 'getItems']); // Get items for a faction
-});
-
-Route::get('/profile', function (Request $request) {
-    return response()->json([
-        'user' => $request->auth
-    ]);
-})->middleware('jwt');

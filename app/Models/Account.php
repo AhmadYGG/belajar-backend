@@ -13,12 +13,11 @@ class Account extends Authenticatable implements JWTSubject
     protected $table = 'accounts'; // tabel yang dipakai
     protected $primaryKey = 'ID';  // sesuaikan dengan primary key di DB
 
-    public $timestamps = false; // kalau tabel ga punya created_at / updated_at
+    public $timestamps = false;
 
     protected $fillable = [
         'Username',
         'Password',
-        // tambahin kolom lain kalau ada, misal Email, Role, dsb
     ];
 
     protected $hidden = [

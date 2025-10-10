@@ -11,15 +11,11 @@
       0 => 'Barryvdh\\DomPDF\\ServiceProvider',
     ),
   ),
-  'darkaonline/l5-swagger' => 
+  'dedoc/scramble' => 
   array (
-    'aliases' => 
-    array (
-      'L5Swagger' => 'L5Swagger\\L5SwaggerFacade',
-    ),
     'providers' => 
     array (
-      0 => 'L5Swagger\\L5SwaggerServiceProvider',
+      0 => 'Dedoc\\Scramble\\ScrambleServiceProvider',
     ),
   ),
   'laravel/sail' => 

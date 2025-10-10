@@ -2,45 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Music;
+use App\Http\Services\MusicService;
+use Illuminate\Http\JsonResponse;
 
 class MusicController extends Controller
 {
-    /**
-     * @OA\Get(
-     *     path="/api/music",
-     *     summary="Get All Public Music",
-     *     tags={"Music"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="List of Saved Music",
-     *         @OA\JsonContent(
-     *             type="object",
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(
-     *                 property="data",
-     *                 type="array",
-     *                 @OA\Items(
-     *                     type="object",
-     *                     @OA\Property(property="id", type="integer", example=1),
-     *                     @OA\Property(property="name", type="string", example="Song 1"),
-     *                     @OA\Property(property="url", type="string", example="https://example.com/song1.mp3")
-     *                 )
-     *             )
-     *         )
-     *     )
-     * )
-     */
+    protected MusicService $musicService;
+
+    public function __construct(MusicService $musicService)
+    {
+        $this->musicService = $musicService;
+    }
 
     // mengambil semua data musik yang sudah ditambahkan
-    public function getAllSavedMusic()
+    public function listMusic(): JsonResponse
     {
-        $musics = Music::all();
+        try {
+            $musics = $this->musicService->listMusic();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $musics
-        ]);
+            return response()->json([
+                'status' => 'success',
+                'data' => $musics
+            ], 200);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Gagal mengambil data musik: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }
