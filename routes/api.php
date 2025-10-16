@@ -30,5 +30,7 @@ Route::middleware('jwt')->group(function () {
     Route::post('/orders', [OrderController::class, 'store']);
     Route::get('/orders/{id}', [OrderController::class, 'show']);
     Route::get('/orders/{id}/receipt', [OrderController::class, 'receipt']);
-    Route::get('/characters/{username}', [CharacterController::class, 'getByUsername']);
+    Route::get('/characters', [CharacterController::class, 'getByUsername']);
+    Route::post('/characters', [CharacterController::class, 'bindCharacter']);
+    Route::get('/char-check', [CharacterController::class, 'getAccountCharacters']);
 });

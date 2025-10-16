@@ -16,6 +16,7 @@ class Account extends Authenticatable implements JWTSubject
     public $timestamps = false;
 
     protected $fillable = [
+        'ID',
         'Username',
         'Password',
     ];

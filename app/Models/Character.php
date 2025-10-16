@@ -9,7 +9,7 @@ class Character extends Model
 {
     use HasFactory;
 
-    protected $table = 'characters'; 
+    protected $table = 'characters';
     protected $primaryKey = 'ID';   // penting! case-sensitive
     public $incrementing = true;
     protected $keyType = 'int';
@@ -20,7 +20,8 @@ class Character extends Model
         'Gender',
         'Birthdate',
         'Money',
-        'Faction'
+        'Faction',
+        'VIPTime'
     ];
 
     public function bankAccount()
@@ -32,5 +33,15 @@ class Character extends Model
     public function cars()
     {
         return $this->hasMany(Car::class, 'carOwner', 'ID');
+    }
+
+    public function houses()
+    {
+        return $this->hasMany(House::class, 'houseOwner', 'ID');
+    }
+
+    public function factions()
+    {
+        return $this->hasOne(Faction::class, 'factionID', 'Faction');
     }
 }

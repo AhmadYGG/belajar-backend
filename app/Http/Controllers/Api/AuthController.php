@@ -17,23 +17,19 @@ class AuthController extends Controller
     public function loginUser(LoginRequest $request)
     {
         try {
-            $result = $this->authService->loginUser(
-                $request->input('ucp'),
-                $request->input('password')
-            );
+            $user = null;
+            $token = $this->authService->loginUser($request->validated(), $user);
 
-            if (!$result || !$result['status']) {
+            if (!$token) {
                 return response()->json([
-                    'message' => $result['message'] ?? 'Login gagal. Username atau kata sandi tidak sesuai.',
-                ], $result['code'] ?? 401);
+                    'message' => 'Login gagal. Username atau kata sandi tidak sesuai'
+                ], 500);
             }
 
             return response()->json([
-                'message' => $result['message'] ?? 'Login berhasil.',
-                'data' => $result['data'] ?? null,
-                'token' => $result['token'] ?? null,
-            ], $result['code'] ?? 200);
-
+                'message' => 'Selamat datang, Anda berhasil login.',
+                'token' => $token ?? null,
+            ], 200);
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,
