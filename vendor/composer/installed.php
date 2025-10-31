@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '9527d3535ef9d0f414c8e284ff53a730d33eb172',
+        'reference' => '2575f650d52899a9811a5397732d8fbe36b431d3',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -146,6 +146,17 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../egulias/email-validator',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'evilfreelancer/samp-api-php' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '2832992821d0a4ae42dd81f9c805c7222aee9ac1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../evilfreelancer/samp-api-php',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
             'dev_requirement' => false,
         ),
         'fakerphp/faker' => array(
@@ -472,7 +483,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '9527d3535ef9d0f414c8e284ff53a730d33eb172',
+            'reference' => '2575f650d52899a9811a5397732d8fbe36b431d3',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

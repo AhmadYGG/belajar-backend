@@ -81,7 +81,7 @@ class CharacterService
 
         // Cek apakah akun sudah punya binding aktif
         $account = $this->accountRepo->findById($accountId);
-        if ($account && $account->BindCharacterID) {
+        if ($account && $account->BindCharacterID != -1) {
             throw new Exception('Akun ini sudah memiliki karakter yang dibind.');
         }
 

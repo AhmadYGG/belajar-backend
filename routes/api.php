@@ -7,6 +7,7 @@ use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\FactionController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SampController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ use App\Http\Controllers\OrderController;
 
 Route::post('/login', [AuthController::class, 'loginUser']);
 Route::get('/music', [MusicController::class, 'listMusic']);
+Route::get('/samp-info', [SampController::class, 'info']);
+
 Route::prefix('factions')->group(function () {
     Route::get('/', [FactionController::class, 'index']);
     Route::get('/{factionID}/items', [FactionController::class, 'getItems']);

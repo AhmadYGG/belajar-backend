@@ -999,6 +999,58 @@
             "install-path": "../egulias/email-validator"
         },
         {
+            "name": "evilfreelancer/samp-api-php",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EvilFreelancer/samp-api-php.git",
+                "reference": "2832992821d0a4ae42dd81f9c805c7222aee9ac1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EvilFreelancer/samp-api-php/zipball/2832992821d0a4ae42dd81f9c805c7222aee9ac1",
+                "reference": "2832992821d0a4ae42dd81f9c805c7222aee9ac1",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-json": "*"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "^9.1"
+            },
+            "time": "2020-04-13T22:38:07+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "SampApi\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "GTA San Andreas Multiplayer PHP client for work with remote console",
+            "keywords": [
+                "SAMP",
+                "socket-client"
+            ],
+            "support": {
+                "issues": "https://github.com/EvilFreelancer/samp-api-php/issues",
+                "source": "https://github.com/EvilFreelancer/samp-api-php/tree/master"
+            },
+            "install-path": "../evilfreelancer/samp-api-php"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.24.1",
             "version_normalized": "1.24.1.0",

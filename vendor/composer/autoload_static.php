@@ -102,6 +102,7 @@ class ComposerStaticInit65ebbf5ab0f0d87f6ee32ccfa207d220
             'Spatie\\FlareClient\\' => 19,
             'Spatie\\ErrorSolutions\\' => 22,
             'Spatie\\Backtrace\\' => 17,
+            'SampApi\\' => 8,
             'Sabberworm\\CSS\\' => 15,
         ),
         'R' => 
@@ -391,6 +392,10 @@ class ComposerStaticInit65ebbf5ab0f0d87f6ee32ccfa207d220
         'Spatie\\Backtrace\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/backtrace/src',
+        ),
+        'SampApi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src',
         ),
         'Sabberworm\\CSS\\' => 
         array (
@@ -694,9 +699,13 @@ class ComposerStaticInit65ebbf5ab0f0d87f6ee32ccfa207d220
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Repositories\\AccountRepository' => __DIR__ . '/../..' . '/app/Http/Repositories/AccountRepository.php',
+        'App\\Http\\Repositories\\AuthRepository' => __DIR__ . '/../..' . '/app/Http/Repositories/AuthRepository.php',
+        'App\\Http\\Repositories\\CharacterRepository' => __DIR__ . '/../..' . '/app/Http/Repositories/CharacterRepository.php',
         'App\\Http\\Repositories\\MusicRepository' => __DIR__ . '/../..' . '/app/Http/Repositories/MusicRepository.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Http\\Requests\\BindCharacterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/BindCharacterRequest.php',
         'App\\Http\\Services\\Auth\\AuthService' => __DIR__ . '/../..' . '/app/Http/Services/Auth/AuthService.php',
+        'App\\Http\\Services\\CharacterService' => __DIR__ . '/../..' . '/app/Http/Services/CharacterService.php',
         'App\\Http\\Services\\MusicService' => __DIR__ . '/../..' . '/app/Http/Services/MusicService.php',
         'App\\Models\\Account' => __DIR__ . '/../..' . '/app/Models/Account.php',
         'App\\Models\\BankAccount' => __DIR__ . '/../..' . '/app/Models/BankAccount.php',
@@ -704,6 +713,7 @@ class ComposerStaticInit65ebbf5ab0f0d87f6ee32ccfa207d220
         'App\\Models\\Character' => __DIR__ . '/../..' . '/app/Models/Character.php',
         'App\\Models\\Faction' => __DIR__ . '/../..' . '/app/Models/Faction.php',
         'App\\Models\\FactionStorage' => __DIR__ . '/../..' . '/app/Models/FactionStorage.php',
+        'App\\Models\\House' => __DIR__ . '/../..' . '/app/Models/House.php',
         'App\\Models\\Music' => __DIR__ . '/../..' . '/app/Models/Music.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\OrderItem' => __DIR__ . '/../..' . '/app/Models/OrderItem.php',
@@ -6293,6 +6303,15 @@ class ComposerStaticInit65ebbf5ab0f0d87f6ee32ccfa207d220
         'Sabberworm\\CSS\\Value\\URL' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/URL.php',
         'Sabberworm\\CSS\\Value\\Value' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/Value.php',
         'Sabberworm\\CSS\\Value\\ValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/ValueList.php',
+        'SampApi\\Client' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Client.php',
+        'SampApi\\Config' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Config.php',
+        'SampApi\\Interfaces\\ClientInterface' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Interfaces/ClientInterface.php',
+        'SampApi\\Interfaces\\ConfigInterface' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Interfaces/ConfigInterface.php',
+        'SampApi\\Interfaces\\ModelInterface' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Interfaces/ModelInterface.php',
+        'SampApi\\Interfaces\\RconInterface' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Interfaces/RconInterface.php',
+        'SampApi\\Model' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Model.php',
+        'SampApi\\Models\\Varlist' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Models/Varlist.php',
+        'SampApi\\Rcon' => __DIR__ . '/..' . '/evilfreelancer/samp-api-php/src/Rcon.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
         'SebastianBergmann\\CliParser\\OptionDoesNotAllowArgumentException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/OptionDoesNotAllowArgumentException.php',

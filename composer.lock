@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65ebbf5ab0f0d87f6ee32ccfa207d220",
+    "content-hash": "2a97d3976317b248053fb8984489c2bd",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -820,6 +820,55 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "evilfreelancer/samp-api-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EvilFreelancer/samp-api-php.git",
+                "reference": "2832992821d0a4ae42dd81f9c805c7222aee9ac1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EvilFreelancer/samp-api-php/zipball/2832992821d0a4ae42dd81f9c805c7222aee9ac1",
+                "reference": "2832992821d0a4ae42dd81f9c805c7222aee9ac1",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-json": "*"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "^9.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SampApi\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "GTA San Andreas Multiplayer PHP client for work with remote console",
+            "keywords": [
+                "SAMP",
+                "socket-client"
+            ],
+            "support": {
+                "issues": "https://github.com/EvilFreelancer/samp-api-php/issues",
+                "source": "https://github.com/EvilFreelancer/samp-api-php/tree/master"
+            },
+            "time": "2020-04-13T22:38:07+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -9934,8 +9983,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {},
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "evilfreelancer/samp-api-php": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

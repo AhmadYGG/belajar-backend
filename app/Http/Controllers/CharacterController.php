@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Character;
+use App\Models\Account;
 use App\Http\Requests\BindCharacterRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Services\CharacterService;
@@ -55,10 +55,11 @@ class CharacterController extends Controller
             $username = JWTAuth::parseToken()->getPayload()->get('username');
 
             // Ambil bind character ID dari akun
-            $bindCharacterID = $user->BindCharacterID;
+            $account = Account::where('Username', $username)->first();
+            $bindCharacterID = $account->BindCharacterID;
 
             // Jika user sudah bind character
-            if ($bindCharacterID) {
+            if ($bindCharacterID != -1 && $bindCharacterID != 0) {
                 $character = Character::with(['bankAccount', 'cars', 'houses', 'factions'])
                     ->where('ID', $bindCharacterID)
                     ->first([
@@ -69,7 +70,10 @@ class CharacterController extends Controller
                 if (!$character) {
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Karakter yang sudah di-bind tidak ditemukan.'
+                        'data' => [
+                            'bindCharacterID' => $account,
+                        ],
+                        'message' => 'Karakter yang sudah di-bind tidak ditemukan.',
                     ], 404);
                 }
 
@@ -79,7 +83,7 @@ class CharacterController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'data' => $result
-                ]);
+                ], 200);
             }
 
             // Kalau belum bind character
@@ -93,8 +97,8 @@ class CharacterController extends Controller
             if ($characters->isEmpty()) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Character not found'
-                ], 404);
+                    'message' => 'Karakter tidak ditemukan'
+                ], 200);
             }
 
             $result = $characters->map(function ($char) {
