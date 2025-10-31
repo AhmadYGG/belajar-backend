@@ -7,7 +7,7 @@ use App\Models\Account;
 use App\Http\Requests\BindCharacterRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Services\CharacterService;
-use Exception; // ✅ penting brok
+use Exception;
 
 class CharacterController extends Controller
 {
@@ -20,11 +20,9 @@ class CharacterController extends Controller
 
     private function formatTimeRemaining(int $vipTime): string
     {
-        // Jika nilainya timestamp UNIX (lebih besar dari waktu sekarang)
         if ($vipTime > time()) {
             $seconds = $vipTime - time();
         } else {
-            // Kalau sudah hasil selisih, langsung pakai
             $seconds = $vipTime;
         }
 
@@ -51,14 +49,11 @@ class CharacterController extends Controller
     public function getByUsername()
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate(); // ambil user dari token
             $username = JWTAuth::parseToken()->getPayload()->get('username');
 
-            // Ambil bind character ID dari akun
             $account = Account::where('Username', $username)->first();
             $bindCharacterID = $account->BindCharacterID;
 
-            // Jika user sudah bind character
             if ($bindCharacterID != -1 && $bindCharacterID != 0) {
                 $character = Character::with(['bankAccount', 'cars', 'houses', 'factions'])
                     ->where('ID', $bindCharacterID)
@@ -77,7 +72,6 @@ class CharacterController extends Controller
                     ], 404);
                 }
 
-                // format data character tunggal
                 $result = $this->formatCharacterData($character);
 
                 return response()->json([
@@ -86,7 +80,6 @@ class CharacterController extends Controller
                 ], 200);
             }
 
-            // Kalau belum bind character
             $characters = Character::where('Username', $username)
                 ->with(['bankAccount', 'cars', 'houses', 'factions'])
                 ->get([
@@ -118,9 +111,6 @@ class CharacterController extends Controller
         }
     }
 
-    /**
-     * 🔹 Fungsi bantu untuk format data karakter biar gak ngulang2
-     */
     private function formatCharacterData($char)
     {
         $factionName = $char->factions->factionName ?? 'Tidak Bergabung';
@@ -175,7 +165,7 @@ class CharacterController extends Controller
         ];
     }
 
-    public function bindCharacter(BindCharacterRequest $request) // ✅ diperbaiki nama method
+    public function bindCharacter(BindCharacterRequest $request)
     {
         $accountId = JWTAuth::parseToken()->getPayload()->get('accountId');
         $characterId = $request->input('character_id');
